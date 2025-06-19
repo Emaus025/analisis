@@ -1,0 +1,9 @@
+ID_Cliente,Nombre_Cliente,Edad,Genero,Tipo_Licencia
+CLI001,José Hernández,35,M,A
+CLI002,María López,28,F,B
+CLI003,Carlos Ramírez,45,M,A
+CLI004,Ana González,22,F,B
+CLI005,Pedro Martínez,50,M,C
+CLI006,Laura Sánchez,30,F,A
+CLI007,David Torres,27,M,B
+CLI008,Sofía Morales,40,F,A

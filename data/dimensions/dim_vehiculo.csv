@@ -1,0 +1,10 @@
+ID_Vehiculo,Tipo_Vehiculo,Marca,Modelo,Año
+VEH001,Coche,Nissan,Tsuru,2020
+VEH002,Moto,Italika,FT150,2023
+VEH003,Camioneta,Chevrolet,Tornado,2021
+VEH004,Coche,Volkswagen,Jetta,2022
+VEH005,Moto,Honda,CB190,2022
+VEH006,Coche,Chevrolet,Spark,2023
+VEH007,Remolque,Generic,Trailer,2021
+VEH008,Coche,Kia,Rio,2022
+VEH009,Moto,Yamaha,YBR,2023

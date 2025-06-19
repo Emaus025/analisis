@@ -1,0 +1,9 @@
+Pruebas realizadas el 19/06/2025 a las 12:10 PM CST
+- Funcionalidad: Script ejecutado sin errores.
+- Calidad:
+  - Sin valores nulos: OK
+  - IDs de sucursal válidos: OK (Ciudad de México, Monterrey, Mérida, Guadalajara, Puebla)
+  - Métricas positivas: OK
+  - Cobertura de sucursales: Todas presentes
+- Consistencia: Métricas para SUC1 (Ciudad de México) coinciden con cálculo manual (Total=7800.5, Count=2, Avg=3900.25).
+- Utilidad: Datos listos para Tableau/Power BI, gráfico de ingresos por ciudad generado.
