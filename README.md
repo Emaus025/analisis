@@ -29,22 +29,27 @@ El enfoque está en analizar ventas por sucursal en las siguientes ciudades:
 
 ## Instalación
 
-- `Clona el repositorio`:
+- **Clona el repositorio**:
+  ```bash
   git clone https://github.com/ariadnalpz/rent4you-dw-repository.git
+  
   cd rent4you-dw-repository
 
-- `Instala las dependencias`:
+- **Instala las dependencias**:
+  ```bash
   pip install pandas numpy python-dateutil
 
 ## Uso
 Asegúrate de que los archivos CSV estén en las carpetas data/raw y data/dimensions.
 
-- `Ejecuta el script de preprocesamiento`:
+- **Ejecuta el script de preprocesamiento**:
+  ```bash
   python scripts/preprocess_ventas.py
 
 Revisa los datos procesados en data/processed/ventas_por_sucursal.csv.
 
-- `Ejecuta las pruebas de calidad`:
+- **Ejecuta las pruebas de calidad**:
+  ```bash
   python scripts/test_ventas.py
 
 Abre los datos procesados en herramientas BI (Tableau, Power BI, Excel) para análisis.
