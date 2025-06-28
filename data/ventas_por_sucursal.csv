@@ -1,0 +1,6 @@
+ID_Sucursal,Total_Alquileres,Monto_Total,Monto_Promedio,Nombre_Sucursal,Ciudad
+SUC001,2,2300.0,1150.0,Plaza Central,Ciudad de México
+SUC002,2,1300.0,650.0,Tecnopolis,Monterrey
+SUC003,2,3600.0,1800.0,Costa Maya,Cancún
+SUC004,2,600.0,300.0,Perisur,Guadalajara
+SUC005,2,1800.0,900.0,Angelópolis,Puebla
