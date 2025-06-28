@@ -1,0 +1,10 @@
+ID_Telefono,Marca,Modelo,Año,Tipo_Telefono
+TEL001,Apple,iPhone 13,2021,Smartphone
+TEL002,Samsung,Galaxy S22,2022,Smartphone
+TEL003,Xiaomi,Redmi Note 11,2022,Smartphone
+TEL004,Motorola,Moto G100,2021,Smartphone
+TEL005,Huawei,P40 Lite,2020,Smartphone
+TEL006,Apple,iPhone SE,2022,Smartphone
+TEL007,Nokia,1100,2003,Feature Phone
+TEL008,Samsung,Galaxy A53,2022,Smartphone
+TEL009,Google,Pixel 6,2021,Smartphone

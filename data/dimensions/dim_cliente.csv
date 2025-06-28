@@ -1,9 +1,11 @@
 ID_Cliente,Nombre_Cliente,Edad,Genero,Tipo_Licencia
-CLI001,José Hernández,35,M,A
-CLI002,María López,28,F,B
-CLI003,Carlos Ramírez,45,M,A
-CLI004,Ana González,22,F,B
-CLI005,Pedro Martínez,50,M,C
-CLI006,Laura Sánchez,30,F,A
-CLI007,David Torres,27,M,B
-CLI008,Sofía Morales,40,F,A
+CLI001,Alejandro Mendoza,32,M,A
+CLI002,Valeria Ríos,25,F,B
+CLI003,Ricardo Jiménez,41,M,A
+CLI004,Fernanda Castro,29,F,B
+CLI005,Oscar Núñez,38,M,C
+CLI006,Daniela Ortega,27,F,A
+CLI007,Roberto Vega,33,M,B
+CLI008,Adriana Medina,44,F,A
+CLI009,Diego Camacho,26,M,B
+CLI010,Paola Reyes,31,F,C

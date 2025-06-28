@@ -9,16 +9,30 @@ DIM_DIR = 'data/dimensions'
 PROC_DIR = 'data/processed'
 os.makedirs(PROC_DIR, exist_ok=True)
 
-# Carga de datos
-ventas = pd.read_csv(f'{RAW_DIR}/ventas_raw.csv')
-dim_sucursal = pd.read_csv(f'{DIM_DIR}/dim_sucursal.csv')
-dim_cliente = pd.read_csv(f'{DIM_DIR}/dim_cliente.csv')
-dim_vehiculo = pd.read_csv(f'{DIM_DIR}/dim_vehiculo.csv')
-dim_tiempo = pd.read_csv(f'{DIM_DIR}/dim_tiempo.csv')
+# Carga de datos con verificación de columnas
+try:
+    ventas = pd.read_csv(f'{RAW_DIR}/ventas_raw.csv')
+    dim_sucursal = pd.read_csv(f'{DIM_DIR}/dim_sucursal.csv')
+    dim_cliente = pd.read_csv(f'{DIM_DIR}/dim_cliente.csv')
+    dim_telefono = pd.read_csv(f'{DIM_DIR}/dim_telefono.csv')
+    dim_tiempo = pd.read_csv(f'{DIM_DIR}/dim_tiempo.csv')
+    
+    # Verificar columnas necesarias
+    required_ventas_cols = ['ID_Alquiler', 'ID_Sucursal', 'ID_Cliente', 'ID_Telefono', 
+                           'Fecha_Alquiler', 'Duracion_Dias', 'Monto_Alquiler', 'Descuento']
+    if not all(col in ventas.columns for col in required_ventas_cols):
+        missing = [col for col in required_ventas_cols if col not in ventas.columns]
+        raise ValueError(f'Columnas faltantes en ventas_raw.csv: {missing}')
 
-# 1. Manejo de valores nulos
-ventas['Monto_Alquiler'].fillna(ventas['Monto_Alquiler'].median(), inplace=True)
-ventas['Descuento'].fillna(0, inplace=True)
+except Exception as e:
+    print(f"Error cargando datos: {str(e)}")
+    exit(1)
+
+# 1. Manejo de valores nulos (versión compatible con pandas 3.0)
+ventas = ventas.assign(
+    Monto_Alquiler=ventas['Monto_Alquiler'].fillna(ventas['Monto_Alquiler'].median()),
+    Descuento=ventas['Descuento'].fillna(0)
+)
 
 # 2. Normalización de fechas
 def parse_date(date_str):
@@ -27,29 +41,33 @@ def parse_date(date_str):
     except:
         return np.nan
 
-ventas['Fecha_Alquiler'] = ventas['Fecha_Alquiler'].apply(parse_date)
-ventas.dropna(subset=['Fecha_Alquiler'], inplace=True)
+ventas = ventas.assign(Fecha_Alquiler=ventas['Fecha_Alquiler'].apply(parse_date))
+ventas = ventas.dropna(subset=['Fecha_Alquiler'])
 
 # 3. Eliminación de duplicados
-ventas.drop_duplicates(subset=['ID_Alquiler'], keep='first', inplace=True)
+ventas = ventas.drop_duplicates(subset=['ID_Alquiler'], keep='first')
 
 # 4. Validación de IDs
-ventas = ventas[ventas['ID_Sucursal'].isin(dim_sucursal['ID_Sucursal'])]
-ventas = ventas[ventas['ID_Cliente'].isin(dim_cliente['ID_Cliente'])]
-ventas = ventas[ventas['ID_Vehiculo'].isin(dim_vehiculo['ID_Vehiculo'])]
+ventas = ventas[
+    ventas['ID_Sucursal'].isin(dim_sucursal['ID_Sucursal']) &
+    ventas['ID_Cliente'].isin(dim_cliente['ID_Cliente']) &
+    ventas['ID_Telefono'].isin(dim_telefono['ID_Telefono'])
+]
 
 # 5. Corrección de valores inválidos
-ventas['Duracion_Dias'] = ventas['Duracion_Dias'].clip(lower=1)
-ventas['Descuento'] = ventas['Descuento'].clip(lower=0)
-ventas['Monto_Alquiler'] = ventas['Monto_Alquiler'].clip(lower=0)
+ventas = ventas.assign(
+    Duracion_Dias=ventas['Duracion_Dias'].clip(lower=1),
+    Descuento=ventas['Descuento'].clip(lower=0),
+    Monto_Alquiler=ventas['Monto_Alquiler'].clip(lower=0)
+)
 
 # 6. Agregación por sucursal
-ventas['Monto_Final'] = ventas['Monto_Alquiler'] - ventas['Descuento']
-ventas_por_sucursal = ventas.groupby('ID_Sucursal').agg({
-    'ID_Alquiler': 'count',
-    'Monto_Final': ['sum', 'mean']
-}).reset_index()
-ventas_por_sucursal.columns = ['ID_Sucursal', 'Total_Alquileres', 'Monto_Total', 'Monto_Promedio']
+ventas = ventas.assign(Monto_Final=ventas['Monto_Alquiler'] - ventas['Descuento'])
+ventas_por_sucursal = ventas.groupby('ID_Sucursal').agg(
+    Total_Alquileres=('ID_Alquiler', 'count'),
+    Monto_Total=('Monto_Final', 'sum'),
+    Monto_Promedio=('Monto_Final', 'mean')
+).reset_index()
 
 # 7. Unir con dim_sucursal
 ventas_por_sucursal = ventas_por_sucursal.merge(

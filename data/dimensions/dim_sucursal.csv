@@ -1,6 +1,10 @@
 ID_Sucursal,Nombre_Sucursal,Ciudad,Pais
-SUC1,Centro,Ciudad de México,México
-SUC2,Norte,Monterrey,México
-SUC3,Sur,Mérida,México
-SUC4,Oeste,Guadalajara,México
-SUC5,Este,Puebla,México
+SUC001,Plaza Central,Ciudad de México,México
+SUC002,Tecnopolis,Monterrey,México
+SUC003,Costa Maya,Cancún,México
+SUC004,Perisur,Guadalajara,México
+SUC005,Angelópolis,Puebla,México
+SUC006,Galerías,Querétaro,México
+SUC007,La Isla,Tijuana,México
+SUC008,Altacia,León,México
+SUC009,Punto Vallejo,Toluca,México
